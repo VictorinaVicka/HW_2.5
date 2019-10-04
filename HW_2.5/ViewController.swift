@@ -13,48 +13,76 @@ class ViewController: UIViewController {
     @IBOutlet var userNameTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     
-    @IBOutlet var logInButton: UIButton!
-    
-    @IBOutlet var forgotUserNameButton: UIButton!
-    @IBOutlet var forgotPasswordButton: UIButton!
+    private var userName = "Victoria"
+    private var password = "Vorobeva"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        passwordTextField.enablesReturnKeyAutomatically = false
     }
     
-    @IBAction func unwind(for segue: UIStoryboardSegue) {
-//        let _ = segue.source as! HomeViewController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "fromHomeVC" else { return }
+        let homeVC = segue.destination as! HomeViewController
+        homeVC.userName = userNameTextField.text
     }
-
-    @IBAction func signUpAction(_ sender: Any) {
-        let userName = userNameTextField.text
-        let password = passwordTextField.text
-        
-        if userName == "Victoria" && password == "Vorobeva" {
-            performSegue(withIdentifier: "fromHomeVC", sender: nil)
-        } else {
-            showErrorNotification(title: "Wrong password!", message: "Please enter the correct password")
-            passwordTextField.text = nil
+    
+    @IBAction func logInPressed() {
+        guard
+            userNameTextField.text == userName,
+            passwordTextField.text == password
+        else  {
+            showErrorNotification(title: "Wrong login or password!",
+                                  message: "Please enter the correct password",
+                                  textField: passwordTextField)
+            return
         }
-    }
-    
-     private func showErrorNotification(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Ok", style: .default)
-        alert.addAction(okAction)
-        present(alert, animated: true)
+        
+        performSegue(withIdentifier: "fromHomeVC", sender: nil)
     }
     
     @IBAction func rememberUserName() {
-        showErrorNotification(title: "Do not be sad!", message: "Your user name is 'Victoria'😎")
-    }
-    
+           showErrorNotification(title: "Do not be sad!",
+                                 message: "Your user name is '\(userName)'😎")
+       }
+       
     @IBAction func remamberPassword() {
-        showErrorNotification(title: "Do not be sad!", message: "Your password is 'Vorobeva'😎")
+           showErrorNotification(title: "Do not be sad!",
+                                 message: "Your password is '\(password)'😎")
+       }
+    
+    @IBAction func unwind(for segue: UIStoryboardSegue) {
+        passwordTextField.text = nil
     }
     
+    private func showErrorNotification(title: String, message: String, textField: UITextField? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
+            textField?.text = nil
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true)
+    }
 }
 
-//Отправляю в большей степени домашку, чтобы понять что не так я делаю и почему у меня все-таки не видит код и открывается другой VC, даже если пароль не правильный. На это убила почти все время.((
+extension ViewController: UITextFieldDelegate {
+        
+        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            super .touchesBegan(touches, with: event)
+            view.endEditing(true)
+        }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == userNameTextField {
+            textField.resignFirstResponder()
+            passwordTextField.becomeFirstResponder()
+        } else {
+            logInPressed()
+        }
+        return true
+    }
+}
+    
+
+
 

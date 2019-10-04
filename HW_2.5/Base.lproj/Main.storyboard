@@ -21,12 +21,18 @@
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="User Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x9H-5z-6a5">
                                         <rect key="frame" x="0.0" y="0.0" width="270" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="ejj-wr-hyT"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fzO-9G-9QO">
                                         <rect key="frame" x="0.0" y="59" width="270" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="KoM-6V-l4S"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <constraints>
@@ -41,8 +47,7 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <state key="normal" title="Log In"/>
                                 <connections>
-                                    <action selector="signUpAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AlB-Ab-UyV"/>
-                                    <segue destination="zC4-Xb-pAB" kind="presentation" identifier="fromHomeVC" modalPresentationStyle="fullScreen" id="2aA-Jn-ov1"/>
+                                    <action selector="logInPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="k4V-Ml-gKZ"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="qvZ-rM-OTh">
@@ -80,11 +85,9 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="forgotPasswordButton" destination="vuq-Ik-CQH" id="bu4-le-I7w"/>
-                        <outlet property="forgotUserNameButton" destination="VXO-1x-ery" id="XX1-xm-SRE"/>
-                        <outlet property="logInButton" destination="W0g-Qx-MgM" id="U1I-n0-c5u"/>
                         <outlet property="passwordTextField" destination="fzO-9G-9QO" id="qcp-ne-67o"/>
                         <outlet property="userNameTextField" destination="x9H-5z-6a5" id="Tsi-SR-VXb"/>
+                        <segue destination="zC4-Xb-pAB" kind="presentation" identifier="fromHomeVC" modalPresentationStyle="fullScreen" id="dQy-QG-JS2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -110,7 +113,10 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KNb-Qx-BSt">
                                         <rect key="frame" x="10" y="250" width="30" height="50"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <state key="normal">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <segue destination="NJN-vj-DEX" kind="unwind" unwindAction="unwindFor:" id="jlS-9w-hfS"/>
                                         </connections>
@@ -118,7 +124,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.73302318999746507" green="0.86254354988441728" blue="0.87024261305052841" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="8RH-zS-pGf" firstAttribute="centerY" secondItem="vGO-dt-42X" secondAttribute="centerY" id="AuQ-Wy-4kr"/>
                             <constraint firstItem="8RH-zS-pGf" firstAttribute="centerX" secondItem="vGO-dt-42X" secondAttribute="centerX" id="Wxb-2v-aJr"/>
